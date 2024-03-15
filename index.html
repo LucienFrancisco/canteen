@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewpoint" content="width=device-width, initial-scale=1.0" />
+    <title>Canteen</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      .form-group input, .form-group select {
+        width: 100%;
+        padding: 5px;
+      }
+      #orderList {
+        list-style-type: none;
+        padding: 0;
+      }
+      #orderList li {
+        margin-bottom: 10px;
+      }
+      #changeMessage {
+        color: green;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <h1>Welcome to the canteen!</h1>
+      <h2>Here are our street foods menu.</h2>
+      <h3>Prices are shown below. Click "Finalize Order" button once you're sure with your orders.</h3>
+      <div class="street-foods">
+        <ul>
+          <li>Burger - 60 Pesos</li>
+          <li>Fries - 50 Pesos</li>
+          <li>Fishball - 20 Pesos</li>
+          <li>Kikiam - 25 Pesos</li>
+        </ul>
+
+        <div class="choices">
+            <form>
+              <label for="street-foods">Choices</label>
+              <select name="street-foods" id="street-foods">
+                <option value="burger">Burger</option>
+                <option value="fries">Fries</option>
+                <option value="fishball">Fishball</option>
+                <option value="kikiam">Kikiam</option>
+              </select>
+            </form>
+          </div>
+      
+          <div class="quantity">
+            <label for="quantity">Quantity</label>
+            <input type="number" id="quantity" name="quantity" min="1" value="1" />
+          </div>
+      
+          <button type="button" id="addToOrderButton">Add to Order</button>
+        </div>
+      
+        <div class="finalize-order">
+            <button type="button" id="finalizeOrderButton" disabled>Finalize Order</button>
+          </div>
+      
+          <div class="total-order">
+            <h3>Total Order:</h3>
+            <input type="text" id="totalOrder" name="totalOrder" readonly />
+          </div>
+
+        <div class="order">
+          <h3>Your Order:</h3>
+          <ul id="orderList"></ul>
+          <div class="total">
+            <label for="total">Total:</label>
+            <input type="text" id="total" name="total" readonly />
+          </div>
+          <button type="button" id="clearOrderButton">Clear Order</button>
+        </div>
+        
+        <div class="pay">
+          <form>
+            <label for="cash">Cash:</label>
+            <input type="number" id="cash" name="cash" min="0" step="1" />
+            <input type="button" value="Pay" id="payButton" />
+          </form>
+          <div id="cashOnlyPayment" style="display:none;">
+            <p>Please pay <strong>{{ totalOrder }}</strong> Pesos in cash.</p>
+          </div>
+          <div id="otherPaymentMethods" style="display:none;">
+            <p>Please pay <strong>{{ totalOrder }}</strong> Pesos using one of the following methods:</p>
+            <ul>
+              <li>GCash</li>
+              <li>PayMaya</li>
+              <li>Credit/Debit Card</li>
+            </ul>
+          </div>
+          <p id="paymentMessage" style="display:none;">Thank you for your payment. Your order is now being prepared.</p>
+          <p id="changeMessage" style="display:none;"></p>
+        </div>
+      
+      </main>
+
+    </main>
+  </body>
+</html>
+
+<!-- iskrips--------------------------------------------------------- -->
+
+<script>
+
+
+
+      // ------------------------------------------
+    
+      let order = [];
+      let totalOrder = 0;
+
+      document.getElementById("addToOrderButton").addEventListener("click", function () {
+        const food = document.getElementById("street-foods").value;
+        const quantity = document.getElementById("quantity").value;
+        const price = getPrice(food);
+        const total = price * quantity;
+
+        order.push({ food, quantity, total });
+        updateTotalOrder();
+        updateOrderList();
+        enableFinalizeOrderButton();
+      });
+
+      document.getElementById("finalizeOrderButton").addEventListener("click", function () {
+        updateTotal();
+        updateChangeMessage();
+        disableFinalizeOrderButton();
+      });
+
+      document.getElementById("clearOrderButton").addEventListener("click", function () {
+        clearOrder();
+      });
+
+      function getPrice(food) {
+        switch (food) {
+          case "burger":
+            return 60;
+          case "fries":
+            return 50;
+          case "fishball":
+            return 20;
+          case "kikiam":
+            return 25;
+          default:
+            return 0;
+        }
+      }
+
+      function updateTotalOrder() {
+        totalOrder = order.reduce((total, item) => total + item.total, 0);
+        document.getElementById("totalOrder").value = totalOrder;
+      }
+
+      function updateOrderList() {
+        const orderList = document.getElementById("orderList");
+        orderList.innerHTML = "";
+
+        order.forEach((item, index) => {
+          const listItem = document.createElement("li");
+          listItem.textContent = `${item.food} - Quantity: ${item.quantity} - Total: ${item.total}`;
+          orderList.appendChild(listItem);
+        });
+      }
+
+      function enableFinalizeOrderButton() {
+        document.getElementById("finalizeOrderButton").disabled = false;
+      }
+
+      function disableFinalizeOrderButton() {
+        document.getElementById("finalizeOrderButton").disabled = true;
+      }
+
+      function clearOrder() {
+        order = [];
+        updateTotalOrder();
+        updateOrderList();
+        disableFinalizeOrderButton();
+      }
+
+      function updateTotal() {
+        const cash = parseInt(document.getElementById("cash").value);
+        const change = cash - totalOrder;
+
+        document.getElementById("total").value = totalOrder;
+        document.getElementById("paymentMessage").style.display = "block";
+        document.getElementById("changeMessage").textContent = `Change: ${change}`;
+        document.getElementById("changeMessage").style.display = "block";
+      }
+
+      function updateChangeMessage() {
+        const cash = parseInt(document.getElementById("cash").value);
+        const change = cash - totalOrder;
+
+        document.getElementById("changeMessage").textContent = `Change: ${change}`;
+        document.getElementById("changeMessage").style.display = "block";
+      }
+
+  </script>

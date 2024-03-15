@@ -1,0 +1,169 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4bbff;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+  }
+
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1, h2, h3 {
+    color: #8e44ad;
+  }
+  
+  .street-foods,
+  .order,
+  .pay {
+    margin-top: 20px;
+  }
+  
+  .street-foods ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #f5f5f5;
+  }
+  
+  .choices {
+    margin-top: 10px;
+  }
+  
+  .choices select {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .quantity {
+    margin-top: 10px;
+  }
+  
+  .quantity label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .quantity input[type="number"] {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  #addToOrderButton {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #8e44ad;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  #addToOrderButton:hover {
+    background-color: #6a2c70;
+  }
+  
+  #finalizeOrderButton {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #8e44ad;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  #finalizeOrderButton:hover {
+    background-color: #6a2c70;
+  }
+  
+  #orderList {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #f5f5f5;
+  }
+  
+  #orderList li {
+    margin-bottom: 5px;
+  }
+  
+  .total {
+    margin-top: 10px;
+  }
+  
+  .total label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .total input[type="text"] {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  #clearOrderButton {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #8e44ad;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  #clearOrderButton:hover {
+    background-color: #6a2c70;
+  }
+  
+  .pay {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #f5f5f5;
+  }
+  .pay label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .pay input[type="number"] {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .pay input[type="submit"] {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #8e44ad;
+    color: #fff;
+    cursor: pointer;
+  }
